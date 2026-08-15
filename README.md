@@ -1,4 +1,4 @@
-# 三星软重启流畅优化 (原生调度纯净版)
+# 三星软重启流畅优化
 
 针对 Samsung Galaxy 系列 One UI 在软重启（用户空间重启 / userspace-reboot）后出现的掉帧、卡顿与锁屏时间丢失问题进行平息与修复的 KernelSU 模块。
 
