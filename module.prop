@@ -1,6 +1,0 @@
-id=samsung_lag_fix
-name=三星软重启流畅优化 (原生调度纯净版)
-version=1.5.3
-versionCode=10
-author=黑白君
-description=修复软重启后官方原生锁屏时钟丢失问题；抑制后台服务重启风暴与换页颠簸，保留原生调速。
