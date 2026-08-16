@@ -10,9 +10,8 @@ until [ "$(getprop sys.boot_completed)" = "1" ]; do
     sleep 2
 done
 
-# 避开开机服务挂载最高峰
-sleep 15
-log_fix "启动 v1.5.3 软重启维护流程..."
+sleep 5
+log_fix "启动 v1.5.8 维护流程..."
 
 # 2. 平息套接字与网络工作队列风暴 (解决 kworker 抢占 CPU)
 if [ -d /proc/sys/net/ipv4 ]; then
@@ -28,10 +27,12 @@ if [ -f /proc/sys/kernel/printk_ratelimit ]; then
     echo 5 > /proc/sys/kernel/printk_ratelimit
 fi
 
-# 4. 仅清理 CVE 临时提权残留二进制进程 (不触碰任何系统服务)
-TARGET_EXPLOITS="libcve43499root.so cve43499 libcve43499 temp_root_daemon exp_payload cve_worker su_temp"
-for proc in $TARGET_EXPLOITS; do
-    pkill -9 -f "$proc" 2>/dev/null
+# 4. 白名单极速提权清理 (利用 ps 快速扫描 + 临时路径白名单，毫秒级执行)
+EXPLOIT_NAMES="libcve43499root.so cve43499 libcve43499 temp_root_daemon exp_payload cve_worker su_temp"
+for target in $EXPLOIT_NAMES; do
+    for pid in $(ps -eo PID,ARGS 2>/dev/null | grep -E "(/data/local/tmp|/dev/|/data/tmp)" | grep -w "$target" | awk '{print $1}'); do
+        [ -n "$pid" ] && kill -9 "$pid" 2>/dev/null
+    done
 done
 
 # 5. 优化内存换页倾向 (平息 ZRAM 颠簸与 sys CPU 占用)
@@ -42,8 +43,17 @@ if [ -f /proc/sys/vm/vfs_cache_pressure ]; then
     echo 80 > /proc/sys/vm/vfs_cache_pressure 2>/dev/null
 fi
 
-# 6. 主动唤醒并拉起三星锁屏 AOD 时钟服务 (解决官方原装时钟丢失问题)
-am startservice -n com.samsung.android.app.aodservice/.AODService >/dev/null 2>&1
+# 6. 抑制 Android 框架层服务重启风暴 (不修改任何 App 电池优化，直接限制 ActivityManager 重试频率，解除 system_server 100% CPU 占用)
+settings put global activity_manager_constants "service_restart_duration=30000,service_reset_run_duration=60000,service_min_restart_time_between=15000" 2>/dev/null
+
+# 7. 彻底拉起并强制重绘三星锁屏时钟与 AOD 视图
+pkill -9 -f "com.samsung.android.app.aodservice" 2>/dev/null
+sleep 1
+am start-foreground-service --user 0 -n com.samsung.android.app.aodservice/.AODService >/dev/null 2>&1
+am startservice --user 0 -n com.samsung.android.app.aodservice/.AODService >/dev/null 2>&1
+am broadcast --user 0 -a android.intent.action.TIME_SET >/dev/null 2>&1
+am broadcast --user 0 -a com.samsung.android.app.aodservice.action.AOD_STATE_CHANGED >/dev/null 2>&1
 
 sync
-log_fix "v1.5.3 执行完毕，原生时钟与调度恢复正常。"
+log_fix "v1.5.8 执行完毕，服务重启风暴平息，原生时钟与系统运行正常。"
+
