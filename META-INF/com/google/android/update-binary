@@ -20,8 +20,9 @@ chmod 0755 "$MODPATH"/*.sh 2>/dev/null
 [ -f "$MODPATH/customize.sh" ] && . "$MODPATH/customize.sh"
 
 ui_print "************************************"
-ui_print " 三星软重启流畅优化 v1.5.3 (纯净版)"
+ui_print " 三星软重启流畅优化 v1.5.8 (纯净版)"
 ui_print " 作者: 黑白君"
 ui_print " 模块安装成功！"
 ui_print "************************************"
 exit 0
+
