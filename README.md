@@ -62,9 +62,9 @@
 ---
 
 ### v1.5.3（在带有spen的机型上存在恶性bug）
-* **修复锁屏时钟丢失**：开机自动拉起并绑定 `AODService`，解决软重启后官方原生锁屏时钟空白问题[span_0](start_span)[span_0](end_span)[span_1](start_span)[span_1](end_span)。
-* **调优虚拟内存参数**：调整 `swappiness` (100) 与 `vfs_cache_pressure` (80)，抑制后台服务换页颠簸与 `sys CPU` 占用[span_2](start_span)[span_2](end_span)。
-* **优化启动延时**：开机等待时间从 30s 缩短至 15s，更快平息网络与日志风暴[span_3](start_span)[span_3](end_span)。
+* **修复锁屏时钟丢失**：开机自动拉起并绑定 `AODService`，解决软重启后官方原生锁屏时钟空白问题。
+* **调优虚拟内存参数**：调整 `swappiness` (100) 与 `vfs_cache_pressure` (80)，抑制后台服务换页颠簸与 `sys CPU` 占用。
+* **优化启动延时**：开机等待时间从 30s 缩短至 15s，更快平息网络与日志风暴。
 
 ---
 
@@ -76,8 +76,8 @@
 ---
 
 ### v1.5.1（beta）
-* **保留原生调速**：删除了强行重置调度策略的逻辑，完全沿用三星官方原生能效曲线[span_4](start_span)[span_4](end_span)[span_5](start_span)[span_5](end_span)。
-
+* **保留原生调速**：删除了强行重置调度策略的逻辑，完全沿用三星官方原生能效曲线。
+  
 ---
 
 ### v1.5.0（beta）
