@@ -1,8 +1,8 @@
 三星软重启流畅优化
 
-针对 Samsung Galaxy 系列 One UI 在软重启后可能出现的掉帧、卡顿、系统服务异常以及锁屏时钟 / AOD 丢失问题进行检测、平息与修复的 KernelSU 模块。
+针对 Samsung Galaxy 系列 One UI 在软重启后可能出现的掉帧、卡顿、系统服务异常进行记录/修复的 KernelSU 模块。
 
-本模块主要面向使用临时 Root、KernelSU 进行系统调试或软重启的 Galaxy 用户。
+本模块主要面向One ui 8.5 使用临时 Root、KernelSU 进行系统调试或软重启的 Galaxy 用户。
 
 ---
 
