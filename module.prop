@@ -1,6 +1,7 @@
 id=samsung_lag_fix
-name=三星软重启流畅优化
-version=1.5.8
-versionCode=15
+name=三星软重启流畅优化与助手自愈
+version=2.1.0
+versionCode=210
 author=黑白君
-description=修复软重启后官方原生锁屏时钟丢失问题；通过框架层调度限制彻底抑制服务重启风暴；保留原生调速与电池策略。
+description=清理已知临时Root残留进程，并在系统默认设为Google时自动修复国行开机语音交互服务丢失问题，支持一键导出诊断日志
+
