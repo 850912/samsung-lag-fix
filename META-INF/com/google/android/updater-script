@@ -1,1 +1,3 @@
-#MAGISK
+ui_print("Samsung LagFix v2.1.0");
+ui_print("- 清理已知临时Root残留");
+ui_print("- 修复国行 Google 助手开机失效");
